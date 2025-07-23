@@ -796,3 +796,44 @@ body {
         grid-template-columns: 1fr;
     }
 }
+
+/* Extra-small devices (≤420px) */
+@media screen and (max-width: 420px) {
+    .cart-main {
+        padding: 1.25rem 0 2.5rem;
+    }
+
+    .cart-container {
+        gap: 1rem;
+    }
+
+    .cart-item {
+        grid-template-columns: 60px 1fr;
+        grid-template-areas:
+            "image details"
+            "price price"
+            "quantity quantity"
+            "total total"
+            "remove remove";
+        gap: 0.75rem;
+    }
+    .cart-item-image {
+        width: 60px;
+        height: 60px;
+    }
+    .cart-item-price,
+    .cart-item-total {
+        text-align: left;
+    }
+    .quantity-input {
+        width: 32px;
+    }
+    .summary-card {
+        position: static;
+        width: 100%;
+        margin-top: 1rem;
+    }
+    .discount-input-group {
+        flex-direction: column;
+    }
+}
