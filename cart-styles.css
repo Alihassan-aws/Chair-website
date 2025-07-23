@@ -784,6 +784,44 @@ body {
 }
 
 @media screen and (max-width: 480px) {
+    .cart-main {
+        padding: 1.5rem 0 3rem;
+    }
+
+    /* stack cart items similar to ≤420px */
+    .cart-item {
+        grid-template-columns: 70px 1fr;
+        grid-template-areas:
+            "image details"
+            "price price"
+            "quantity quantity"
+            "total total"
+            "remove remove";
+        gap: 0.75rem;
+        padding: 1rem 0;
+    }
+    .cart-item-image {
+        width: 70px;
+        height: 70px;
+    }
+    .cart-item-price,
+    .cart-item-total {
+        text-align: left;
+    }
+    .quantity-input {
+        width: 36px;
+    }
+
+    .summary-card {
+        position: static;
+        width: 100%;
+        margin-top: 1rem;
+    }
+
+    .discount-input-group {
+        flex-direction: column;
+    }
+
     .page-title {
         font-size: 2rem;
     }
