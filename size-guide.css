@@ -1,0 +1,224 @@
+/* Size Guide Page Styles */
+.size-guide {
+    padding: 120px 0 80px;
+    background: #1f2029;
+    color: #fff;
+    min-height: calc(100vh - 400px); /* Adjust based on footer height */
+}
+
+.size-guide .container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.size-guide h1 {
+    text-align: center;
+    margin-bottom: 50px;
+    font-size: 2.5rem;
+    color: #ffeba7;
+    background: linear-gradient(135deg, #fff, #ffeba7);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.size-chart {
+    margin-bottom: 60px;
+}
+
+.size-chart h2 {
+    color: #ffeba7;
+    margin-bottom: 25px;
+    font-size: 1.8rem;
+    border-bottom: 1px solid rgba(255, 235, 167, 0.3);
+    padding-bottom: 10px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 25px 0;
+    background: rgba(40, 41, 54, 0.9);
+    border: 1px solid rgba(255, 235, 167, 0.3);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+th {
+    background: rgba(255, 235, 167, 0.1);
+    color: #ffeba7;
+    padding: 15px;
+    text-align: left;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-size: 0.9rem;
+}
+
+td {
+    padding: 12px 15px;
+    border-top: 1px solid rgba(255, 235, 167, 0.1);
+    color: #f0f0f0;
+}
+
+tr:hover td {
+    background: rgba(255, 235, 167, 0.05);
+}
+
+.contact-prompt {
+    text-align: center;
+    margin-top: 60px;
+    padding: 30px;
+    background: rgba(40, 41, 54, 0.9);
+    border-radius: 8px;
+    border: 1px solid rgba(255, 235, 167, 0.3);
+}
+
+.contact-link {
+    color: #ffeba7;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 1px dotted rgba(255, 235, 167, 0.5);
+}
+
+.contact-link:hover {
+    color: #fff;
+    border-bottom-color: #ffeba7;
+}
+
+/* Footer Styles */
+.footer {
+    background-color: #0f1015;
+    padding: 60px 0 20px;
+    color: #fff;
+    border-top: 1px solid rgba(255, 235, 167, 0.1);
+}
+
+.footer-content {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+.footer-section h3,
+.footer-section h4 {
+    color: #ffeba7;
+    margin-bottom: 1rem;
+}
+
+.footer-section p,
+.footer-section li {
+    opacity: 0.8;
+    margin-bottom: 0.5rem;
+    line-height: 1.6;
+}
+
+.footer-section ul {
+    list-style: none;
+}
+
+.footer-section a {
+    color: #fff;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.footer-section a:hover {
+    color: #ffeba7;
+}
+
+.social-links {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.social-links a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    transition: all 0.3s ease;
+}
+
+.social-links a:hover {
+    background: #ffeba7;
+    color: #1f2029;
+    transform: translateY(-2px);
+}
+
+.footer-bottom {
+    text-align: center;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    opacity: 0.6;
+    font-size: 0.9rem;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+    .size-guide {
+        padding: 100px 0 50px;
+    }
+    
+    .size-guide h1 {
+        font-size: 2rem;
+    }
+    
+    .size-chart h2 {
+        font-size: 1.5rem;
+    }
+    
+    .footer-content {
+        grid-template-columns: 1fr 1fr;
+    }
+    
+    th, td {
+        padding: 12px;
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 480px) {
+    .footer-content {
+        grid-template-columns: 1fr;
+    }
+    
+    table {
+        display: block;
+        overflow-x: auto;
+    }
+    
+    .contact-prompt {
+        padding: 20px;
+    }
+}
+/* Add this to your existing size-guide.css */
+.cart-icon {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.cart-count {
+    background-color: #ffeba7;
+    color: #1f2029;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 600;
+    margin-left: 5px;
+    position: relative;
+    top: -1px;
+}
+
+/* Rest of your existing size guide styles... */

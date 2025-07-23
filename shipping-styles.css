@@ -1,0 +1,111 @@
+/* Shipping & Returns Page Styles */
+.shipping-returns {
+    padding: 120px 0 80px;
+    background: #1f2029;
+    color: #fff;
+}
+
+.shipping-returns .container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.shipping-returns h1 {
+    text-align: center;
+    margin-bottom: 50px;
+    font-size: 2.5rem;
+    color: #ffeba7;
+    background: linear-gradient(135deg, #fff, #ffeba7);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.info-section {
+    margin-bottom: 50px;
+}
+
+.info-section h2 {
+    color: #ffeba7;
+    margin-bottom: 20px;
+    font-size: 1.8rem;
+    padding-bottom: 10px;
+    border-bottom: 1px solid rgba(255, 235, 167, 0.3);
+}
+
+.info-section h3 {
+    color: #fff;
+    margin: 25px 0 15px;
+    font-size: 1.3rem;
+}
+
+.info-section p, 
+.info-section ul, 
+.info-section ol {
+    margin-bottom: 20px;
+    line-height: 1.7;
+    color: #f0f0f0;
+}
+
+.info-section ul, 
+.info-section ol {
+    padding-left: 20px;
+}
+
+.info-section li {
+    margin-bottom: 10px;
+}
+
+.highlight-box {
+    background: rgba(40, 41, 54, 0.9);
+    border-left: 4px solid #ff6b6b;
+    padding: 20px;
+    margin: 30px 0;
+    border-radius: 0 4px 4px 0;
+}
+
+.highlight-box h3 {
+    margin-top: 0;
+    color: #ffeba7;
+}
+
+.contact-support {
+    text-align: center;
+    margin-top: 50px;
+    padding: 30px;
+    background: rgba(40, 41, 54, 0.9);
+    border-radius: 8px;
+    border: 1px solid rgba(255, 235, 167, 0.3);
+}
+
+.contact-support a {
+    color: #ffeba7;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.contact-support a:hover {
+    color: #fff;
+    text-decoration: underline;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+    .shipping-returns {
+        padding: 90px 0 50px;
+    }
+    
+    .shipping-returns h1 {
+        font-size: 2rem;
+    }
+    
+    .info-section h2 {
+        font-size: 1.5rem;
+    }
+    
+    .info-section h3 {
+        font-size: 1.2rem;
+    }
+}

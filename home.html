@@ -5,7 +5,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>SHK Brand - Modern Furniture</title>
+    <title>Telford - Modern Furniture</title>
     <link rel="shortcut icon" href="./Chair web/images/favicon.ico" type="image/x-icon" />
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css" />
@@ -18,7 +18,7 @@
     <nav class="navbar">
         <div class="nav-container">
             <div class="nav-logo">
-                <h3>SHK Brand</h3>
+                <a href="home.html"><h3>Telford</h3></a>
             </div>
             <ul class="nav-menu">
                 <li class="nav-item">
@@ -34,7 +34,7 @@
                     <a href="contact.html" class="nav-link">Contact</a>
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link cart-icon"><i class="uil uil-shopping-cart"></i></a>
+                    <a href="cart.html" class="nav-link cart-icon"><i class="uil uil-shopping-cart"></i></a>
                 </li>
             </ul>
             <div class="hamburger">
@@ -50,7 +50,7 @@
         <div class="hero-container">
             <div class="hero-content">
                 <h1>Modern Furniture for Modern Living</h1>
-                <p>Discover our collection of premium chairs designed for comfort, style, and durability. Transform your space with SHK Brand's contemporary furniture.</p>
+                <p>Discover our collection of premium chairs designed for comfort, style, and durability. Transform your space with Telford's contemporary furniture.</p>
                 <div class="hero-buttons">
                     <a href="products.html" class="btn btn-primary">Shop Now</a>
                     <a href="about.html" class="btn btn-secondary">Learn More</a>
@@ -162,7 +162,7 @@
         <div class="container">
             <div class="footer-content">
                 <div class="footer-section">
-                    <h3>SHK Brand</h3>
+                    <h3>Telford</h3>
                     <p>Creating modern furniture that combines style, comfort, and functionality for contemporary living spaces.</p>
                     <div class="social-links">
                         <a href="#"><i class="uil uil-facebook-f"></i></a>
@@ -185,10 +185,10 @@
                 <div class="footer-section">
                     <h4>Customer Service</h4>
                     <ul>
-                        <li><a href="#">Shipping Info</a></li>
-                        <li><a href="#">Returns</a></li>
-                        <li><a href="#">Size Guide</a></li>
-                        <li><a href="#">FAQ</a></li>
+                        <li><a href="shipping-info.html">Shipping & Returns</a></li>
+                        <li><a href="faq.html">FAQ</a></li>
+                        <li><a href="size-guide.html">Size Guide</a></li>
+                        <li><a href="privacy-policy.html">Privacy Policy</a></li>
                     </ul>
                 </div>
                 
@@ -196,17 +196,170 @@
                     <h4>Contact Info</h4>
                     <p><i class="uil uil-map-marker"></i> 123 Furniture Street, Design City</p>
                     <p><i class="uil uil-phone"></i> +1 (555) 123-4567</p>
-                    <p><i class="uil uil-envelope"></i> info@shkbrand.com</p>
+                    <p><i class="uil uil-envelope"></i> info@telford.com</p>
                 </div>
             </div>
             
             <div class="footer-bottom">
-                <p>&copy; 2024 SHK Brand. All rights reserved.</p>
+                <p>&copy; 2025 Telford. All rights reserved.</p>
             </div>
         </div>
     </footer>
 
+    <link rel="stylesheet" href="./cart-styles.css">
+    <script src="./cart.js"></script>
     <script src="./home-script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize cart
+            const cart = window.cart || new Cart();
+            
+            // Cart modal functionality
+            const cartModal = document.createElement('div');
+            cartModal.innerHTML = `
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3>Your Shopping Cart</h3>
+                        <span class="close-modal">&times;</span>
+                    </div>
+                    <div class="modal-body">
+                        <div id="cart-items" class="cart-items">
+                            <div class="empty-cart">
+                                <i class="uil uil-shopping-cart"></i>
+                                <p>Your cart is empty</p>
+                                <a href="products.html" class="btn btn-primary">Continue Shopping</a>
+                            </div>
+                        </div>
+                        <div id="cart-summary" class="cart-summary" style="display: none;">
+                            <div class="summary-row">
+                                <span>Subtotal</span>
+                                <span id="cart-subtotal">$0.00</span>
+                            </div>
+                            <div class="summary-row">
+                                <span>Shipping</span>
+                                <span>Calculated at checkout</span>
+                            </div>
+                            <div class="summary-row total">
+                                <span>Total</span>
+                                <span id="cart-total">$0.00</span>
+                            </div>
+                            <a href="checkout.html" class="btn btn-primary btn-block">Proceed to Checkout</a>
+                        </div>
+                    </div>
+                </div>
+            `;
+            cartModal.id = 'cartModal';
+            cartModal.className = 'modal';
+            document.body.appendChild(cartModal);
+
+            // Cart icon click handler
+            document.querySelectorAll('.cart-icon').forEach(icon => {
+                icon.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    cartModal.style.display = 'block';
+                    document.body.style.overflow = 'hidden';
+                    renderCart();
+                });
+            });
+
+            // Close modal
+            cartModal.querySelector('.close-modal').addEventListener('click', function() {
+                cartModal.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            });
+
+            // Close when clicking outside modal
+            window.addEventListener('click', function(e) {
+                if (e.target === cartModal) {
+                    cartModal.style.display = 'none';
+                    document.body.style.overflow = 'auto';
+                }
+            });
+
+            // Render cart items
+            function renderCart() {
+                const cartItems = cart.getItems();
+                const cartItemsContainer = cartModal.querySelector('#cart-items');
+                const cartSummary = cartModal.querySelector('#cart-summary');
+                const cartSubtotal = cartModal.querySelector('#cart-subtotal');
+                const cartTotal = cartModal.querySelector('#cart-total');
+
+                if (cartItems.length === 0) {
+                    cartItemsContainer.innerHTML = `
+                        <div class="empty-cart">
+                            <i class="uil uil-shopping-cart"></i>
+                            <p>Your cart is empty</p>
+                            <a href="products.html" class="btn btn-primary">Continue Shopping</a>
+                        </div>
+                    `;
+                    cartSummary.style.display = 'none';
+                    return;
+                }
+
+                cartItemsContainer.innerHTML = cartItems.map((item, index) => `
+                    <div class="cart-item">
+                        <img src="${item.image}" alt="${item.name}" class="cart-item-img">
+                        <div class="cart-item-details">
+                            <h4 class="cart-item-title">${item.name}</h4>
+                            <p>Color: <span class="color-dot" style="background-color: ${item.colorCode}; width: 12px; height: 12px; border-radius: 50%; display: inline-block; vertical-align: middle; margin-right: 5px;"></span>${item.color}</p>
+                            <p class="cart-item-price">$${item.price.toFixed(2)}</p>
+                            <div class="quantity-selector">
+                                <button class="quantity-btn minus" data-index="${index}">-</button>
+                                <input type="number" class="quantity-input" value="${item.quantity}" min="1" readonly>
+                                <button class="quantity-btn plus" data-index="${index}">+</button>
+                            </div>
+                            <button class="remove-item" data-index="${index}">Remove</button>
+                        </div>
+                    </div>
+                `).join('');
+
+                // Add event listeners for quantity buttons
+                cartModal.querySelectorAll('.quantity-btn').forEach(button => {
+                    button.addEventListener('click', function() {
+                        const index = parseInt(this.dataset.index);
+                        const item = cartItems[index];
+                        
+                        if (this.classList.contains('plus')) {
+                            cart.updateQuantity(item.id, item.color, item.quantity + 1);
+                        } else if (this.classList.contains('minus') && item.quantity > 1) {
+                            cart.updateQuantity(item.id, item.color, item.quantity - 1);
+                        }
+                        renderCart();
+                    });
+                });
+
+                // Add event listeners for remove buttons
+                cartModal.querySelectorAll('.remove-item').forEach(button => {
+                    button.addEventListener('click', function() {
+                        const index = parseInt(this.dataset.index);
+                        const item = cartItems[index];
+                        cart.removeItem(item.id, item.color);
+                        renderCart();
+                    });
+                });
+
+                // Update summary
+                const subtotal = cart.getTotal();
+                cartSubtotal.textContent = `$${subtotal.toFixed(2)}`;
+                cartTotal.textContent = `$${subtotal.toFixed(2)}`;
+                cartSummary.style.display = 'block';
+            }
+
+            // Update cart count on page load
+            updateCartCount();
+
+            // Function to update cart count in header
+            function updateCartCount() {
+                const cartItems = cart.getItems();
+                const totalItems = cartItems.reduce((total, item) => total + item.quantity, 0);
+                
+                document.querySelectorAll('.cart-count').forEach(countElement => {
+                    countElement.textContent = totalItems > 0 ? totalItems : '';
+                    countElement.style.display = totalItems > 0 ? 'inline-flex' : 'none';
+                });
+            }
+        });
+    </script>
 </body>
 
 </html>

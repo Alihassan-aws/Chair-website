@@ -109,6 +109,7 @@ body {
     grid-template-columns: 1fr 1fr;
     gap: 4rem;
     align-items: center;
+    margin-top: -10%;
 }
 
 .hero-content h1 {
@@ -139,6 +140,7 @@ body {
     max-width: 500px;
     height: auto;
     filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.3));
+    margin-top: 15%;
 }
 
 /* Buttons */

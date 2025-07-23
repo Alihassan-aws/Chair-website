@@ -74,29 +74,49 @@ sortSelect.addEventListener('change', () => {
     });
 });
 
-// Add to cart functionality
+// ---------------- Add to cart functionality ----------------
 const addToCartButtons = document.querySelectorAll('.add-to-cart');
 
 addToCartButtons.forEach(button => {
     button.addEventListener('click', (e) => {
         e.preventDefault();
-        const productCard = button.closest('.product-card');
-        const productName = productCard.querySelector('h3').textContent;
-        const productPrice = productCard.querySelector('.price').textContent.split(' ')[0];
-        
-        // Simple cart simulation
-        alert(`Added "${productName}" to cart for ${productPrice}`);
-        
-        // Add visual feedback
+
+        // Ensure global cart instance exists
+        let cartInst = window.cart;
+        if (!cartInst) {
+            cartInst = new Cart();
+            window.cart = cartInst;
+        }
+
+        // Build product object from data attribute or DOM
+        let product;
+        if (button.dataset.product) {
+            try {
+                product = JSON.parse(button.dataset.product);
+            } catch (err) {
+                console.error('Invalid product data attribute', err);
+            }
+        }
+        if (!product) {
+            const productCard = button.closest('.product-card');
+            const name = productCard.querySelector('h3').textContent;
+            const price = parseFloat(productCard.querySelector('.price').textContent.replace('$', ''));
+            const id = name.toLowerCase().replace(/\s+/g, '-');
+            const image = productCard.querySelector('img')?.getAttribute('src') || '';
+            product = { id, name, price, image };
+        }
+
+        cartInst.addItem(product);
+
+        // Visual feedback
         button.textContent = 'Added!';
         button.style.background = '#4CAF50';
         button.style.borderColor = '#4CAF50';
-        
         setTimeout(() => {
             button.textContent = 'Add to Cart';
             button.style.background = 'transparent';
             button.style.borderColor = '#ffeba7';
-        }, 2000);
+        }, 1500);
     });
 });
 

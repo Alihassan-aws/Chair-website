@@ -11,6 +11,7 @@
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css" />
 	<link rel="stylesheet" href="https://unicons.iconscout.com/release/v2.1.9/css/unicons.css" />
 	<link rel="stylesheet" href="./product-detail.css" />
+	<link rel="stylesheet" href="./cart-styles.css" />
 </head>
            
 <body>
@@ -25,8 +26,8 @@
 	<div class="section-fluid-main">
 		<div class="section">
 			<div class="info-wrap mob-margin">
-				<h2>Telford Longue</h2>
-				<h4>$254 <span>$530</span></h4>
+				<h2 id="product-title">Telford Longue</h2>
+				<h4 id="product-price">$254 <span>$530</span></h4>
 				<div class="section-fluid">
 					<input class="desc-btn" type="radio" id="desc-1" name="desc-btn" checked />
 					<label for="desc-1">Description</label>
@@ -68,7 +69,7 @@
 			<input class="color-btn for-color-6" type="radio" id="color-6" name="color-btn" />
 			<label class="color-6" for="color-6"></label>
 			<div class="info-wrap">
-				<a href="#" class="btn"><i class="uil uil-shopping-cart icon"></i> Add To Cart</a>
+				<button id="add-to-cart" class="btn"><i class="uil uil-shopping-cart icon"></i> Add To Cart</button>
 			</div>
 			<div class="img-wrap chair-1" style="opacity: 1;"></div>
 			<div class="img-wrap chair-2"></div>
@@ -84,6 +85,187 @@
 			<div class="back-color chair-6"></div>
 		</div>
 	</div>
+	<!-- Cart Modal -->
+	<div id="cartModal" class="modal">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h3>Your Shopping Cart</h3>
+				<span class="close-modal">&times;</span>
+			</div>
+			<div class="modal-body">
+				<div id="cart-items" class="cart-items">
+					<!-- Cart items will be dynamically inserted here -->
+					<div class="empty-cart">
+						<i class="uil uil-shopping-cart"></i>
+						<p>Your cart is empty</p>
+						<a href="products.html" class="btn btn-primary">Continue Shopping</a>
+					</div>
+				</div>
+				<div id="cart-summary" class="cart-summary" style="display: none;">
+					<div class="summary-row">
+						<span>Subtotal</span>
+						<span id="cart-subtotal">$0.00</span>
+					</div>
+					<div class="summary-row">
+						<span>Shipping</span>
+						<span>Calculated at checkout</span>
+					</div>
+					<div class="summary-row total">
+						<span>Total</span>
+						<span id="cart-total">$0.00</span>
+					</div>
+					<a href="checkout.html" class="btn btn-primary btn-block">Proceed to Checkout</a>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Toast Notification -->
+	<div id="toast" class="toast"></div>
+
+	<script src="cart.js"></script>
+	<script>
+		document.addEventListener('DOMContentLoaded', function() {
+			// Get product details
+			const product = {
+				id: 'chair-1',
+				name: document.getElementById('product-title').textContent,
+				price: parseFloat(document.getElementById('product-price').textContent.replace('$', '').split(' ')[0]),
+				image: './Chair web/images/chair1.png',
+				color: 'Red',
+				colorCode: '#ff4d4f'
+			};
+
+			// Color selection
+			const colorMap = {
+				'color-1': { name: 'Red', code: '#ff4d4f', image: './Chair web/images/chair1.png' },
+				'color-2': { name: 'Black', code: '#333', image: './Chair web/images/chair2.png' },
+				'color-3': { name: 'Blue', code: '#1890ff', image: './Chair web/images/chair3.png' },
+				'color-4': { name: 'Green', code: '#52c41a', image: './Chair web/images/chair4.png' },
+				'color-5': { name: 'Yellow', code: '#faad14', image: './Chair web/images/chair5.png' },
+				'color-6': { name: 'Pink', code: '#eb2f96', image: './Chair web/images/chair6.png' }
+			};
+
+			// Handle color selection
+			document.querySelectorAll('input[name="color-btn"]').forEach(radio => {
+				radio.addEventListener('change', function() {
+					const colorId = this.id;
+					const colorInfo = colorMap[colorId];
+					
+					// Update product details
+					product.color = colorInfo.name;
+					product.colorCode = colorInfo.code;
+					product.image = colorInfo.image;
+					
+					// Update active class on color buttons
+					document.querySelectorAll('.color-btn').forEach(btn => {
+						btn.classList.remove('active');
+					});
+					document.querySelector(`label[for="${colorId}"]`).classList.add('active');
+				});
+			});
+
+			// Add to cart functionality
+			document.getElementById('add-to-cart').addEventListener('click', function() {
+				cart.addItem(product);
+			});
+
+			// Cart modal functionality
+			const cartModal = document.getElementById('cartModal');
+			const cartIcons = document.querySelectorAll('.cart-icon');
+			const closeModal = document.querySelector('.close-modal');
+
+			cartIcons.forEach(icon => {
+				icon.addEventListener('click', function(e) {
+					e.preventDefault();
+					cartModal.style.display = 'block';
+					document.body.style.overflow = 'hidden';
+					renderCart();
+				});
+			});
+
+			closeModal.addEventListener('click', function() {
+				cartModal.style.display = 'none';
+				document.body.style.overflow = 'auto';
+			});
+
+			window.addEventListener('click', function(e) {
+				if (e.target === cartModal) {
+					cartModal.style.display = 'none';
+					document.body.style.overflow = 'auto';
+				}
+			});
+
+			// Render cart items
+			function renderCart() {
+				const cartItems = cart.getItems();
+				const cartItemsContainer = document.getElementById('cart-items');
+				const cartSummary = document.getElementById('cart-summary');
+				const cartSubtotal = document.getElementById('cart-subtotal');
+				const cartTotal = document.getElementById('cart-total');
+
+				if (cartItems.length === 0) {
+					cartItemsContainer.innerHTML = `
+						<div class="empty-cart">
+							<i class="uil uil-shopping-cart"></i>
+							<p>Your cart is empty</p>
+							<a href="products.html" class="btn btn-primary">Continue Shopping</a>
+						</div>
+					`;
+					cartSummary.style.display = 'none';
+					return;
+				}
+
+				cartItemsContainer.innerHTML = cartItems.map((item, index) => `
+					<div class="cart-item">
+						<img src="${item.image}" alt="${item.name}" class="cart-item-img">
+						<div class="cart-item-details">
+							<h4 class="cart-item-title">${item.name}</h4>
+							<p>Color: <span class="color-dot" style="background-color: ${item.colorCode}; width: 12px; height: 12px; border-radius: 50%; display: inline-block; vertical-align: middle; margin-right: 5px;"></span>${item.color}</p>
+							<p class="cart-item-price">$${item.price.toFixed(2)}</p>
+							<div class="quantity-selector">
+								<button class="quantity-btn minus" data-index="${index}">-</button>
+								<input type="number" class="quantity-input" value="${item.quantity}" min="1" readonly>
+								<button class="quantity-btn plus" data-index="${index}">+</button>
+							</div>
+							<button class="remove-item" data-index="${index}">Remove</button>
+						</div>
+					</div>
+				`).join('');
+
+				// Add event listeners for quantity buttons
+				document.querySelectorAll('.quantity-btn').forEach(button => {
+					button.addEventListener('click', function() {
+						const index = parseInt(this.dataset.index);
+						const item = cartItems[index];
+						
+						if (this.classList.contains('plus')) {
+							cart.updateQuantity(item.id, item.color, item.quantity + 1);
+						} else if (this.classList.contains('minus') && item.quantity > 1) {
+							cart.updateQuantity(item.id, item.color, item.quantity - 1);
+						}
+						renderCart();
+					});
+				});
+
+				// Add event listeners for remove buttons
+				document.querySelectorAll('.remove-item').forEach(button => {
+					button.addEventListener('click', function() {
+						const index = parseInt(this.dataset.index);
+						const item = cartItems[index];
+						cart.removeItem(item.id, item.color);
+						renderCart();
+					});
+				});
+
+				// Update summary
+				const subtotal = cart.getTotal();
+				cartSubtotal.textContent = `$${subtotal.toFixed(2)}`;
+				cartTotal.textContent = `$${subtotal.toFixed(2)}`;
+				cartSummary.style.display = 'block';
+			}
+		});
+	</script>
 </body>
 
 </html>

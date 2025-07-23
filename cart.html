@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YourStore - Shopping Cart</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:400,500,600,700,800,900">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="./cart-styles.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="home.html" class="nav-logo">
+                <h3>Telford</h3>
+            </a>
+            <ul class="nav-menu">
+                <li><a href="home.html" class="nav-link">Home</a></li>
+                <li><a href="products.html" class="nav-link">Products</a></li>
+                <li><a href="about.html" class="nav-link">About</a></li>
+                <li><a href="contact.html" class="nav-link">Contact</a></li>
+                <li>
+                    <a href="cart.html" class="nav-link active cart-link">
+                        <span class="cart-icon-wrapper">
+                            <i class="fas fa-shopping-cart cart-icon"></i>
+                            <span class="cart-count-badge" id="cart-count">0</span>
+                        </span>
+                        
+                    </a>
+                </li>
+            </ul>
+            <div class="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="cart-main">
+        <div class="container">
+            <div class="breadcrumb">
+                <a href="home.html">Home</a> / <span>Shopping Cart</span>
+            </div>
+            
+            <h1 class="page-title">Your Shopping Cart</h1>
+            
+            <div class="cart-container">
+                <!-- Cart Items Section -->
+                <section class="cart-items-section">
+                    <div class="section-header">
+                        <h2>Cart Items</h2>
+                        <span id="item-count">0 Items</span>
+                    </div>
+                    
+                    <div class="cart-items-container" id="cart-items-container">
+                        <!-- Dynamic content will be inserted here -->
+                        <div class="empty-cart-message">
+                            <i class="fas fa-shopping-cart"></i>
+                            <h3>Your cart is empty</h3>
+                            <p>Looks like you haven't added anything to your cart yet</p>
+                            <a href="products.html" class="btn btn-primary">
+                                <i class="fas fa-arrow-left"></i> Continue Shopping
+                            </a>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- Order Summary Section -->
+                <aside class="order-summary">
+                    <div class="summary-card">
+                        <h3 class="summary-title">Order Summary</h3>
+                        
+                        <div class="summary-details">
+                            <div class="summary-row">
+                                <span>Subtotal</span>
+                                <span id="subtotal">$0.00</span>
+                            </div>
+                            <div class="summary-row">
+                                <span>Shipping</span>
+                                <span id="shipping">$5.00</span>
+                            </div>
+                            <div class="summary-row">
+                                <span>Tax (10%)</span>
+                                <span id="tax">$0.00</span>
+                            </div>
+                            <div class="summary-row discount-row">
+                                <div class="discount-input-group">
+                                    <input type="text" id="discount-code" placeholder="Promo code">
+                                    <button id="apply-discount" class="btn btn-small">Apply</button>
+                                </div>
+                                <span id="discount-amount">-$0.00</span>
+                            </div>
+                            <div class="summary-row grand-total">
+                                <span>Total</span>
+                                <span id="total">$5.00</span>
+                            </div>
+                        </div>
+                        
+                        <button class="btn btn-primary btn-checkout" id="checkout-btn">
+                            <i class="fas fa-lock"></i> Proceed to Checkout
+                        </button>
+                        
+                        <div class="payment-methods">
+                            <p>We accept:</p>
+                            <div class="payment-icons">
+                                <i class="fab fa-cc-visa"></i>
+                                <i class="fab fa-cc-mastercard"></i>
+                                <i class="fab fa-cc-amex"></i>
+                                <i class="fab fa-cc-paypal"></i>
+                            </div>
+                        </div>
+                        
+                        <a href="shop.html" class="continue-shopping-link">
+                            <i class="fas fa-arrow-left"></i> Continue Shopping
+                        </a>
+                    </div>
+                    
+                    <div class="secure-checkout-banner">
+                        <i class="fas fa-shield-alt"></i>
+                        <span>Secure Checkout</span>
+                    </div>
+                </aside>
+            </div>
+            
+            <!-- Recently Viewed Products -->
+            <section class="recently-viewed">
+                <h2 class="section-title">Recently Viewed</h2>
+                <div class="products-grid" id="recently-viewed-grid">
+                    <!-- Dynamic content will be inserted here -->
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h3 class="footer-logo">Telford</h3>
+                    <p class="footer-about">Creating modern furniture that combines style, comfort, and functionality for contemporary living spaces.</p>
+                    <div class="social-links">
+                        <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" aria-label="Pinterest"><i class="fab fa-pinterest"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-col">
+                    <h4 class="footer-title">Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="home.html">Home</a></li>
+                        <li><a href="products.html">Products</a></li>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h4 class="footer-title">Customer Service</h4>
+                    <ul class="footer-links">
+                        <li><a href="shipping-info.html">Shipping & Returns</a></li>
+                        <li><a href="faq.html">FAQ</a></li>
+                        <li><a href="size-guide.html">Size Guide</a></li>
+                        <li><a href="privacy-policy.html">Privacy Policy</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h4 class="footer-title">Contact Info</h4>
+                    <ul class="footer-contact">
+                        <li><i class="fas fa-map-marker-alt"></i> 123 Furniture Street, Design City</li>
+                        <li><i class="fas fa-phone"></i> +1 (555) 123-4567</li>
+                        <li><i class="fas fa-envelope"></i> info@telford.com</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 Telford. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="cart.js"></script>
+    <!-- Reuse navigation logic -->
+    <script src="home-script.js"></script>
+</body>
+</html>

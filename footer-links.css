@@ -1,0 +1,27 @@
+/* Enhanced Customer Policy Footer Links */
+.footer-section ul li a {
+    position: relative;
+    padding-left: 24px;
+    display: inline-block;
+    transition: color 0.3s, transform 0.3s;
+}
+
+.footer-section ul li a::before {
+    content: "\2192"; /* right arrow */
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 0.9rem;
+    color: #ffeba7;
+    transition: transform 0.3s;
+}
+
+.footer-section ul li a:hover {
+    color: #ffeba7;
+    transform: translateX(4px);
+}
+
+.footer-section ul li a:hover::before {
+    transform: translate(4px, -50%);
+}
